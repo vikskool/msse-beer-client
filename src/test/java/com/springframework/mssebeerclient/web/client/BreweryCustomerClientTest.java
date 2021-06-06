@@ -1,6 +1,6 @@
-package com.springframework.mssebeerclient.client;
+package com.springframework.mssebeerclient.web.client;
 
-import com.springframework.mssebeerclient.model.CustomerDto;
+import com.springframework.mssebeerclient.web.model.CustomerDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

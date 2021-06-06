@@ -1,4 +1,4 @@
-package com.springframework.mssebeerclient;
+package com.springframework.mssebeerclient.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

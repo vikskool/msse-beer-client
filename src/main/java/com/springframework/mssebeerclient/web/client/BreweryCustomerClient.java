@@ -1,6 +1,6 @@
-package com.springframework.mssebeerclient.client;
+package com.springframework.mssebeerclient.web.client;
 
-import com.springframework.mssebeerclient.model.CustomerDto;
+import com.springframework.mssebeerclient.web.model.CustomerDto;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Component;

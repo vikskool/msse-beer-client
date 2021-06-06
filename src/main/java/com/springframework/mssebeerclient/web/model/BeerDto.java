@@ -1,4 +1,4 @@
-package com.springframework.mssebeerclient.model;
+package com.springframework.mssebeerclient.web.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

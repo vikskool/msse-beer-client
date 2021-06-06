@@ -1,7 +1,7 @@
-package com.springframework.mssebeerclient.client;
+package com.springframework.mssebeerclient.web.client;
 
 
-import com.springframework.mssebeerclient.model.BeerDto;
+import com.springframework.mssebeerclient.web.model.BeerDto;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Controller;
@@ -11,7 +11,7 @@ import java.net.URI;
 import java.util.UUID;
 
 @Controller
-@ConfigurationProperties(value = "beer.service", ignoreUnknownFields = false)
+@ConfigurationProperties(value = "beer.service", ignoreUnknownFields = false) // if the field is not set, then it is going to fail.
 public class BreweryClient {
 
     private String apiHost;
