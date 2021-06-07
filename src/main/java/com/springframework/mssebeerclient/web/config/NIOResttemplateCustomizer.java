@@ -16,6 +16,7 @@ import org.apache.http.nio.reactor.ConnectingIOReactor;
 import org.apache.http.nio.reactor.IOEventDispatch;
 import org.apache.http.nio.reactor.IOReactorException;
 import org.apache.http.protocol.HttpContext;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateCustomizer;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsAsyncClientHttpRequestFactory;
@@ -30,17 +31,35 @@ import java.util.concurrent.TimeUnit;
 //@Component
 public class NIOResttemplateCustomizer implements RestTemplateCustomizer {
 
+    private final Integer maxTotalConnections;
+    private final Integer defaultMasxPerRoute;
+    private final Integer connectionRequestTimeout;
+    private final Integer sockectTimeout;
+    private final Integer thredCount;
+
+    public NIOResttemplateCustomizer(@Value("${sfg.maxtotalconnections}") Integer maxTotalConnections,
+                                     @Value("${sfg.defaultmaxperroute}") Integer defaultMasxPerRoute,
+                                     @Value("${sfg.connectionrequesttimeout}") Integer connectionRequestTimeout,
+                                     @Value("${sfg.sockettimeout}") Integer sockectTimeout,
+                                     @Value("${sfg.threadcount}") Integer threadCount) {
+        this.maxTotalConnections = maxTotalConnections;
+        this.defaultMasxPerRoute = defaultMasxPerRoute;
+        this.connectionRequestTimeout = connectionRequestTimeout;
+        this.sockectTimeout = sockectTimeout;
+        this.thredCount = threadCount;
+    }
+
     public ClientHttpRequestFactory clientHttpRequestFactory() throws IOReactorException {
 
         final DefaultConnectingIOReactor ioreactor = new DefaultConnectingIOReactor(IOReactorConfig.custom().
-                setConnectTimeout(3000).
-                setIoThreadCount(4).
-                setSoTimeout(3000).
+                setConnectTimeout(connectionRequestTimeout).
+                setIoThreadCount(thredCount).
+                setSoTimeout(sockectTimeout).
                 build());
 
         final PoolingNHttpClientConnectionManager connectionManager = new PoolingNHttpClientConnectionManager(ioreactor);
-        connectionManager.setDefaultMaxPerRoute(100);
-        connectionManager.setMaxTotal(1000);
+        connectionManager.setDefaultMaxPerRoute(defaultMasxPerRoute);
+        connectionManager.setMaxTotal(maxTotalConnections);
 
         CloseableHttpAsyncClient httpAsyncClient = HttpAsyncClients.custom()
                 .setConnectionManager(connectionManager).build();
